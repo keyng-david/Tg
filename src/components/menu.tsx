@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useActivePath } from "../hooks/use-active-path";
-import binanceLogo from "./imgs/binanceLogo"; // update the path to your actual logo
+import binanceLogo from "./imgs/binanceLogo";
 import { Mine, Friends, Coins } from "./icons";
 import hamsterCoin from "./imgs/hamsterCoin";
 
