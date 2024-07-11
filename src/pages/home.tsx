@@ -101,7 +101,6 @@ const App: React.FC = () => {
     
     api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
 };
-  };
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
