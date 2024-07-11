@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
 import { useActivePath } from "../hooks/use-active-path";
-import binanceLogo from "./imgs/binanceLogo";
-import { Mine, Friends, Coins } from "./icons";
-import hamsterCoin from "./imgs/hamsterCoin";
+import Hamster from './icons/Hamster';
+import Info from './icons/Info';
+import Settings from './icons/Settings';
+import Mine from './icons/Mine';
+import Friends from './icons/Friends';
+import Coins from './icons/Coins';
 
 export const Menu = () => {
   return (
