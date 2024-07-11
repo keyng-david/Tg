@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
-import Info from './icons/Info';
-import Settings from './icons/Settings';
-import Mine from './icons/Mine';
-import Friends from './icons/Friends';
-import Coins from './icons/Coins';
-import { binanceLogo, hamsterCoin } from './images'; // Ensure these are correctly imported
+import Info from '../pages/icons/Info';
+import Settings from '../pages/icons/Settings';
+import Mine from '../pages/icons/Mine';
+import Friends from '../pages/icons/Friends';
+import Coins from '../pages/icons/Coins';
+import { binanceLogo, hamsterCoin } from '../pages/images'; 
 
 export const Menu = () => {
   return (
