@@ -98,7 +98,7 @@ const App: React.FC = () => {
     setPoints(points + pointsToAdd);
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
     
-    api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+    api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: points });
 };
 
   const handleAnimationEnd = (id: number) => {
