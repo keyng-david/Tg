@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useActivePath } from "../hooks/use-active-path";
 import Hamster from './icons/Hamster';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
