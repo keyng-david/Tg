@@ -87,6 +87,7 @@ export const newUser = mutation({
       tgUserId: args.tgUserId,
       refId: args.refId || "",
       points: 0,
+      level: "Bronze", 
     });
 
     return { id, existingUser: false };
@@ -108,8 +109,23 @@ export const updateUserPoints = mutation({
       throw new Error("User not found");
     }
 
+    const levels = [
+      { name: "Bronze", minPoints: 0 },
+      { name: "Silver", minPoints: 5000 },
+      { name: "Gold", minPoints: 25000 },
+      { name: "Platinum", minPoints: 100000 },
+      { name: "Diamond", minPoints: 1000000 },
+      { name: "Epic", minPoints: 2000000 },
+      { name: "Legendary", minPoints: 10000000 },
+      { name: "Master", minPoints: 50000000 },
+      { name: "GrandMaster", minPoints: 100000000 },
+      { name: "Lord", minPoints: 1000000000 }
+    ];
+
+    const newLevel = levels.find(level => args.points >= level.minPoints)?.name;
+
     if (user.points < args.points) {
-      await ctx.db.patch(user._id, { points: args.points });
+      await ctx.db.patch(user._id, { points: args.points, level: newLevel });
     }
   },
 });
