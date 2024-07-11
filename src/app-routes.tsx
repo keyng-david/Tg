@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/layout";
-import { Home } from "./pages/home";
+import Home from './pages/home';
 import { InviteFriends } from "./pages/invite-friends";
 import { Leaderboard } from "./pages/leaderboard";
 import { Result } from "./pages/result";
