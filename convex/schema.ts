@@ -8,5 +8,6 @@ export default defineSchema({
     lastName: v.string(),
     refId: v.string(),
     points: v.float64(),
+    level: v.string(),
   }),
 });
