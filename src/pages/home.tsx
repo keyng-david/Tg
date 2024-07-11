@@ -52,7 +52,6 @@ const App: React.FC = () => {
   const profitPerHour = 126420;
 
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
-  const [dailyCipherTimeLeft, setDailyCipherTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
 
   const calculateTimeLeft = (targetHour: number) => {
