@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import Hamster from './icons/Hamster';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import Mine from './icons/Mine';
