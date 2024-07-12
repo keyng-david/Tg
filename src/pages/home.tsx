@@ -93,15 +93,15 @@ const App: React.FC = () => {
     setTimeout(() => {
       card.style.transform = '';
     }, 100);
- 
+
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
     setPoints(prevPoints => {
-            const newPoints = prevPoints + pointsToAdd;
-            updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
-            return newPoints;
-        });
-    };
+      const newPoints = prevPoints + pointsToAdd;
+      updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+      return newPoints;
+    });
+  };
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
@@ -138,10 +138,10 @@ const App: React.FC = () => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => {
-      const newPoints = prevPoints + pointsPerSecond;
-      api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
-      return newPoints;
-    });
+        const newPoints = prevPoints + pointsPerSecond;
+        updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+        return newPoints;
+      });
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
