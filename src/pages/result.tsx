@@ -52,9 +52,6 @@ export const Result = () => {
     playOnMount: true,
   });
 
-  const handleLinkClick = () => {
-    utils.openLink("https://www.malwarebytes.com");
-  };
 
   return (
     <main className="justify-center mx-auto p-10 h-screen flex items-center">
@@ -118,7 +115,6 @@ export const Result = () => {
                 </p>
               </>
             )}
-          </div>
 
         <div className="flex flex-col space-y-2">
           <Link
