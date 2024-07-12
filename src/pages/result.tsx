@@ -42,7 +42,6 @@ const LeaderboardResult = () => {
 export const Result = () => {
   const location = useLocation();
   const points = location.state?.score || 0;
-  const utils = useUtils();
 
   useSaveGameResult(points);
 
