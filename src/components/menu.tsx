@@ -1,6 +1,4 @@
 import { NavLink } from "react-router-dom";
-import Info from '../pages/icons/Info';
-import Settings from '../pages/icons/Settings';
 import Mine from '../pages/icons/Mine';
 import Friends from '../pages/icons/Friends';
 import Coins from '../pages/icons/Coins';
