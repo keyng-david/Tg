@@ -87,7 +87,7 @@ export const newUser = mutation({
       tgUserId: args.tgUserId,
       refId: args.refId || "",
       points: 0,
-      level: "Bronze", 
+      level: "Bronze",
     });
 
     return { id, existingUser: false };
@@ -109,11 +109,6 @@ export const updateUserPoints = mutation({
       throw new Error("User not found");
     }
 
-    await ctx.db.table("users").update(user._id, {
-      points: args.points,
-    });
-  },
-});
     const levels = [
       { name: "Bronze", minPoints: 0 },
       { name: "Silver", minPoints: 5000 },
