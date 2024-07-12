@@ -47,10 +47,6 @@ export const Result = () => {
   useSaveGameResult(points);
 
   const showSuccess = points >= 50;
-  const { ref } = useScramble({
-    text: "Malwarebytes.com",
-    playOnMount: true,
-  });
 
   return (
     <main className="justify-center mx-auto p-10 h-screen flex items-center">
