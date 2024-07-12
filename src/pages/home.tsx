@@ -5,12 +5,9 @@ import { Toaster } from "sonner";
 import { api } from "../../convex/_generated/api";
 import './home.css';
 import Hamster from './icons/Hamster';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
-import Mine from './icons/Mine';
-import Friends from './icons/Friends';
-import Coins from './icons/Coins';
 import { useTgUser } from '../hooks/use-tg-user';
 
 const App: React.FC = () => {
