@@ -1,4 +1,4 @@
-import { useQuery } from 'convex/react';
+import { useQuery, useMutation } from 'convex/react';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
@@ -15,6 +15,8 @@ const App: React.FC = () => {
   const user = useQuery(api.queries.userByTelegramId, {
     tgUserId: currentTgUser?.id,
   });
+
+  const updateUserPoints = useMutation(api.mutations.updateUserPoint );
 
   const [points, setPoints] = useState(user?.points || 0);
   const levelNames = [
@@ -95,11 +97,11 @@ const App: React.FC = () => {
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
     setPoints(prevPoints => {
-        const newPoints = prevPoints + pointsToAdd;
-        api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
-        return newPoints;
-    });
-};
+            const newPoints = prevPoints + pointsToAdd;
+            updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+            return newPoints;
+        });
+    };
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
