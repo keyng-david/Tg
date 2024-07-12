@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery } from 'convex/react';
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
@@ -94,9 +94,11 @@ const App: React.FC = () => {
  
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    const newPoints = points + pointsToAdd;
-  setPoints(newPoints);
-  api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+    setPoints(prevPoints => {
+        const newPoints = prevPoints + pointsToAdd;
+        api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+        return newPoints;
+    });
 };
 
   const handleAnimationEnd = (id: number) => {
