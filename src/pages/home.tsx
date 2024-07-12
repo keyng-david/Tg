@@ -94,11 +94,12 @@ const App: React.FC = () => {
     setTimeout(() => {
       card.style.transform = '';
     }, 100);
-
-    setPoints(points + pointsToAdd);
+ 
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
-    
-    api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: points });
+
+    const newPoints = points + pointsToAdd;
+  setPoints(newPoints);
+  api.mutations.updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
 };
 
   const handleAnimationEnd = (id: number) => {
@@ -236,41 +237,7 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Bottom fixed div */}
-<div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-2rem)] max-w-xl bg-[#272a2f] flex justify-around items-center z-50 rounded-3xl text-xs">
-  <Link to="/" className="w-1/5">
-    <div className="text-center text-[#85827d] bg-[#1c1f24] m-1 p-2 rounded-2xl">
-      <img src={binanceLogo} alt="Exchange" className="w-8 h-8 mx-auto" />
-      <p className="mt-1">Home</p>
-    </div>
-  </Link>
-  <Link to="#" className="w-1/5">
-    <div className="text-center text-[#85827d]">
-      <Mine className="w-8 h-8 mx-auto" />
-      <p className="mt-1">Mine</p>
-    </div>
-  </Link>
-  <Link to="/game" className="w-1/5">
-    <div className="text-center text-[#85827d]">
-      <Friends className="w-8 h-8 mx-auto" />
-      <p className="mt-1">Play</p>
-    </div>
-  </Link>
-  <Link to="#" className="w-1/5">
-    <div className="text-center text-[#85827d]">
-      <Coins className="w-8 h-8 mx-auto" />
-      <p className="mt-1">Earn</p>
-    </div>
-  </Link>
-  <Link to="#" className="w-1/5">
-    <div className="text-center text-[#85827d]">
-      <img src={hamsterCoin} alt="Airdrop" className="w-8 h-8 mx-auto" />
-      <p className="mt-1">Airdrop</p>
-    </div>
-  </Link>
-</div>
+      </div>    
 
       {clicks.map((click) => (
         <div
