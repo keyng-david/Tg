@@ -38,7 +38,7 @@ export const useInitUser = () => {
       if (refUser?.tgUserId === refId) {
         await createUser(refId);
         toast.info(
-          `Welcome to the Tapathon! You have been invited by ${refUser.firstName}!`,
+          `Welcome to the Keyng Coin! You have been invited by ${refUser.firstName}!`,
         );
         return;
       } else {
