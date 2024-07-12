@@ -16,7 +16,6 @@ const App: React.FC = () => {
     tgUserId: currentTgUser?.id,
   });
 
-  const updateUserPoints = useMutation(api.mutations.updateUserPoint );
 
   const [points, setPoints] = useState(user?.points || 0);
   const levelNames = [
