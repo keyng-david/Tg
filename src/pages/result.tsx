@@ -120,13 +120,6 @@ export const Result = () => {
             )}
           </div>
 
-          <p
-            onClick={handleLinkClick}
-            className="text-xl py-2 underline"
-            ref={ref}
-          ></p>
-        </div>
-
         <div className="flex flex-col space-y-2">
           <Link
             to="/invite-friends"
