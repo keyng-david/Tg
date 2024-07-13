@@ -2,7 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useTgUser } from '../hooks/use-tg-user';
 import { useQuery } from 'convex/react';
 import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api"; // Adjust the import path if necessary
+import { api } from "../../convex/_generated/api"; // A
+import {Link} from "react-router-dom";
+import {Toaster} from "sonner";
+import './home.css';
+import Hamster from' ./icons/Hamster';
+import {binanceLogo,dailyCipher,dailyCombo,dailyReward,dollarCoin,mainCharacter} from './images';
+import Info from './icons/Info';
+import Settings from './icons/Settings';
+import {useTgUser} from '../hooks/use-tg-user';
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
