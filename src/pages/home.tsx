@@ -82,7 +82,8 @@ const App: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
-
+   
+  const [updateUserPointsMutation] = useMutation(api.mutations.updateUserPoints);
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -95,11 +96,7 @@ const App: React.FC = () => {
 
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    setPoints(prevPoints => {
-      const newPoints = prevPoints + pointsToAdd;
-      saveResult(newPoints); // Call saveResult whenever points are updated
-      return newPoints;
-    });
+    setPoints(prevPoints => prevPoints + pointsToAdd);
   };
 
   const handleAnimationEnd = (id: number) => {
@@ -138,9 +135,6 @@ const App: React.FC = () => {
     const interval = setInterval(() => {
       setPoints(prevPoints => {
         const newPoints = prevPoints + pointsPerSecond;
-        saveResult(newPoints); // Call saveResult whenever points are updated
-        return newPoints;
-      });
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
