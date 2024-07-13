@@ -1,14 +1,8 @@
-import { useQuery, useMutation } from 'convex/react';
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { Toaster } from 'sonner';
-import { api } from '../../convex/_generated/api';
-import './home.css';
-import Hamster from './icons/Hamster';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
-import Info from './icons/Info';
-import Settings from './icons/Settings';
+import React, { useEffect, useState } from 'react';
 import { useTgUser } from '../hooks/use-tg-user';
+import { useQuery } from 'convex/react';
+import { useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api"; // Adjust the import path if necessary
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -17,7 +11,7 @@ const App: React.FC = () => {
   });
 
   const [points, setPoints] = useState(user?.points || 0);
-  const [updateUserPoints] = useMutation(api.mutations.updateUserPoints);
+  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints); // Corrected line
   const levelNames = [
     'Bronze',    // From 0 to 4999 coins
     'Silver',    // From 5000 coins to 24,999 coins
@@ -97,7 +91,7 @@ const App: React.FC = () => {
 
     setPoints((prevPoints) => {
       const newPoints = prevPoints + 11;
-      updateUserPoints({ tgUserId: currentTgUser?.id, points: newPoints });
+      updateUserPointsMutation({ tgUserId: currentTgUser?.id, points: newPoints }); // Corrected line
       return newPoints;
     });
   };
@@ -138,17 +132,18 @@ const App: React.FC = () => {
     const interval = setInterval(() => {
       setPoints(prevPoints => {
         const newPoints = prevPoints + pointsPerSecond;
+        updateUserPointsMutation({ tgUserId: currentTgUser?.id, points: newPoints }); // Corrected line
         return newPoints;
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [profitPerHour]);
+  }, [profitPerHour, currentTgUser?.id, updateUserPointsMutation]); // Added missing dependencies
 
   useEffect(() => {
     if (currentTgUser && points > 0) {
-      updateUserPointsMutation({ tgUserId: currentTgUser.id, points });
+      updateUserPointsMutation({ tgUserId: currentTgUser.id, points }); // Corrected line
     }
-  }, [points, currentTgUser, updateUserPointsMutation]);
+  }, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
 
   return (
     <div className="bg-black flex justify-center">
