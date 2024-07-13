@@ -52,6 +52,16 @@ const App: React.FC = () => {
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
 
+    // Function to save the result
+  const saveResult = async (points: number) => {
+    try {
+      await updateUserPoints({ tgUserId: currentTgUser.id, points });
+      console.log('Points updated successfully');
+    } catch (error) {
+      console.error('Failed to update points:', error);
+    }
+  };
+
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
     const target = new Date(now);
@@ -97,7 +107,7 @@ const App: React.FC = () => {
 
     setPoints(prevPoints => {
       const newPoints = prevPoints + pointsToAdd;
-      updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+      saveResult(newPoints); // Call saveResult whenever points are updated
       return newPoints;
     });
   };
@@ -138,7 +148,7 @@ const App: React.FC = () => {
     const interval = setInterval(() => {
       setPoints(prevPoints => {
         const newPoints = prevPoints + pointsPerSecond;
-        updateUserPoints({ tgUserId: currentTgUser.id, points: newPoints });
+        saveResult(newPoints); // Call saveResult whenever points are updated
         return newPoints;
       });
     }, 1000);
