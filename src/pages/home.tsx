@@ -8,6 +8,7 @@ import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainChar
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import { useTgUser } from '../hooks/use-tg-user';
+import { useSaveGameResult } from "../hooks/use-save-game-result";
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
