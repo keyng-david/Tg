@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
+// Define mutations
 export const updateUserPoints = mutation({
   args: {
     tgUserId: v.string(),
@@ -37,26 +38,6 @@ export const updateUserPoints = mutation({
   },
 });
 
-export const api = {
-  queries: {
-    totalUsersCount: query({
-      handler: async (ctx) => {
-        const users = await ctx.db.query("users").collect();
-        return users.length;
-      },
-    }),
-    userByTelegramId: query({
-      args: {
-        tgUserId: v.string(),
-      },
-      handler: async (ctx, args) => {
-        return await ctx.db
-          .query("users")
-          .filter((q) => q.eq(q.field("tgUserId"), args.tgUserId))
-          .first();
-      },
-    }),
-    
 // Define queries
 export const totalUsersCount = query({
   handler: async (ctx) => {
@@ -148,8 +129,20 @@ export const newUser = mutation({
     });
 
     return { id, existingUser: false };
-},
+  },
+});
+
+// Export api object with queries and mutations
+export const api = {
+  queries: {
+    totalUsersCount,
+    userByTelegramId,
+    topTenUsers,
+    invitees,
+    userExists,
+  },
   mutations: {
+    newUser,
     updateUserPoints,
   },
 };
