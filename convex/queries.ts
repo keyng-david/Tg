@@ -1,47 +1,62 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 
-// Define mutations
+export const updateUserPoints = mutation({
+  args: {
+    tgUserId: v.string(),
+    points: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const user = await ctx.db
+      .query("users")
+      .filter((q) => q.eq(q.field("tgUserId"), args.tgUserId))
+      .unique();
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const levels = [
+      { name: "Bronze", minPoints: 0 },
+      { name: "Silver", minPoints: 5000 },
+      { name: "Gold", minPoints: 25000 },
+      { name: "Platinum", minPoints: 100000 },
+      { name: "Diamond", minPoints: 1000000 },
+      { name: "Epic", minPoints: 2000000 },
+      { name: "Legendary", minPoints: 10000000 },
+      { name: "Master", minPoints: 50000000 },
+      { name: "GrandMaster", minPoints: 100000000 },
+      { name: "Lord", minPoints: 1000000000 },
+    ];
+
+    const newLevel = levels.find((level) => args.points >= level.minPoints)?.name;
+
+    if (user.points < args.points) {
+      await ctx.db.patch(user._id, { points: args.points, level: newLevel });
+    }
+  },
+});
+
 export const api = {
-  mutations: {
-    updateUserPoints: mutation({
-      args: {
-        tgUserId: v.string(),
-        points: v.number(),
-      },
-      handler: async (ctx, args) => {
-        const user = await ctx.db
-          .query("users")
-          .filter((q) => q.eq(q.field("tgUserId"), args.tgUserId))
-          .unique();
-
-        if (!user) {
-          throw new Error("User not found");
-        }
-
-        const levels = [
-          { name: "Bronze", minPoints: 0 },
-          { name: "Silver", minPoints: 5000 },
-          { name: "Gold", minPoints: 25000 },
-          { name: "Platinum", minPoints: 100000 },
-          { name: "Diamond", minPoints: 1000000 },
-          { name: "Epic", minPoints: 2000000 },
-          { name: "Legendary", minPoints: 10000000 },
-          { name: "Master", minPoints: 50000000 },
-          { name: "GrandMaster", minPoints: 100000000 },
-          { name: "Lord", minPoints: 1000000000 }
-        ];
-
-        const newLevel = levels.find(level => args.points >= level.minPoints)?.name;
-
-        if (user.points < args.points) {
-          await ctx.db.patch(user._id, { points: args.points, level: newLevel });
-        }
+  queries: {
+    totalUsersCount: query({
+      handler: async (ctx) => {
+        const users = await ctx.db.query("users").collect();
+        return users.length;
       },
     }),
-  },
-};
-
+    userByTelegramId: query({
+      args: {
+        tgUserId: v.string(),
+      },
+      handler: async (ctx, args) => {
+        return await ctx.db
+          .query("users")
+          .filter((q) => q.eq(q.field("tgUserId"), args.tgUserId))
+          .first();
+      },
+    }),
+    
 // Define queries
 export const totalUsersCount = query({
   handler: async (ctx) => {
@@ -133,5 +148,8 @@ export const newUser = mutation({
     });
 
     return { id, existingUser: false };
+},
+  mutations: {
+    updateUserPoints,
   },
-});
+};
