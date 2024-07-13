@@ -1,4 +1,4 @@
-import { useQuery } from "convex/react";
+import { useQuery, useMutation } from "convex/react";
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
@@ -82,7 +82,7 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const [updateUserPointsMutation] = useMutation(api.mutations.updateUserPoints);
+  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints);
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -143,13 +143,15 @@ const App: React.FC = () => {
 
   useEffect(() => {
     async function saveResult() {
-      await updateUserPointsMutation({
-        tgUserId: currentTgUser.id,
-        points,
-      });
+      if (currentTgUser?.id) {
+        await updateUserPointsMutation({
+          tgUserId: currentTgUser.id,
+          points,
+        });
+      }
     }
     saveResult();
-  }, [points, updateUserPointsMutation, currentTgUser.id]);
+  }, [points, updateUserPointsMutation, currentTgUser?.id]);
 
   return (
     <div className="bg-black flex justify-center">
