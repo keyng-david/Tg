@@ -1,8 +1,8 @@
-import { useQuery, useMutation } from "convex/react";
+import { useQuery, useMutation } from 'convex/react';
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
-import { Toaster } from "sonner";
-import { api } from "../../convex/_generated/api";
+import { Link } from 'react-router-dom';
+import { Toaster } from 'sonner';
+import { api } from '../../convex/_generated/api';
 import './home.css';
 import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
@@ -18,16 +18,16 @@ const App: React.FC = () => {
 
   const [points, setPoints] = useState(user?.points || 0);
   const levelNames = [
-    "Bronze",    // From 0 to 4999 coins
-    "Silver",    // From 5000 coins to 24,999 coins
-    "Gold",      // From 25,000 coins to 99,999 coins
-    "Platinum",  // From 100,000 coins to 999,999 coins
-    "Diamond",   // From 1,000,000 coins to 2,000,000 coins
-    "Epic",      // From 2,000,000 coins to 10,000,000 coins
-    "Legendary", // From 10,000,000 coins to 50,000,000 coins
-    "Master",    // From 50,000,000 coins to 100,000,000 coins
-    "GrandMaster", // From 100,000,000 coins to 1,000,000,000 coins
-    "Lord"       // From 1,000,000,000 coins to ∞
+    'Bronze',    // From 0 to 4999 coins
+    'Silver',    // From 5000 coins to 24,999 coins
+    'Gold',      // From 25,000 coins to 99,999 coins
+    'Platinum',  // From 100,000 coins to 999,999 coins
+    'Diamond',   // From 1,000,000 coins to 2,000,000 coins
+    'Epic',      // From 2,000,000 coins to 10,000,000 coins
+    'Legendary', // From 10,000,000 coins to 50,000,000 coins
+    'Master',    // From 50,000,000 coins to 100,000,000 coins
+    'GrandMaster', // From 100,000,000 coins to 1,000,000,000 coins
+    'Lord',       // From 1,000,000,000 coins to ∞
   ];
 
   const levelMinPoints = [
@@ -40,7 +40,7 @@ const App: React.FC = () => {
     10000000, // Legendary
     50000000, // Master
     100000000,// GrandMaster
-    1000000000// Lord
+    1000000000,// Lord
   ];
 
   const [levelIndex, setLevelIndex] = useState(6);
@@ -48,8 +48,8 @@ const App: React.FC = () => {
   const pointsToAdd = 11;
   const profitPerHour = 126420;
 
-  const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
-  const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
+  const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState('');
+  const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState('');
 
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
@@ -83,7 +83,6 @@ const App: React.FC = () => {
   }, []);
 
   const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints);
-
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -142,16 +141,10 @@ const App: React.FC = () => {
   }, [profitPerHour]);
 
   useEffect(() => {
-    async function saveResult() {
-      if (currentTgUser?.id) {
-        await updateUserPointsMutation({
-          tgUserId: currentTgUser.id,
-          points,
-        });
-      }
+    if (currentTgUser && points > 0) {
+      updateUserPointsMutation({ tgUserId: currentTgUser.id, points });
     }
-    saveResult();
-  }, [points, updateUserPointsMutation, currentTgUser?.id]);
+  }, [points, currentTgUser, updateUserPointsMutation]);
 
   return (
     <div className="bg-black flex justify-center">
