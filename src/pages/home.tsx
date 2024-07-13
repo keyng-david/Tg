@@ -16,7 +16,6 @@ const App: React.FC = () => {
     tgUserId: currentTgUser?.id,
   });
 
-
   const [points, setPoints] = useState(user?.points || 0);
   const levelNames = [
     "Bronze",    // From 0 to 4999 coins
@@ -82,8 +81,9 @@ const App: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []);
-   
+
   const [updateUserPointsMutation] = useMutation(api.mutations.updateUserPoints);
+
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -135,9 +135,21 @@ const App: React.FC = () => {
     const interval = setInterval(() => {
       setPoints(prevPoints => {
         const newPoints = prevPoints + pointsPerSecond;
+        return newPoints;
+      });
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
+
+  useEffect(() => {
+    async function saveResult() {
+      await updateUserPointsMutation({
+        tgUserId: currentTgUser.id,
+        points,
+      });
+    }
+    saveResult();
+  }, [points, updateUserPointsMutation, currentTgUser.id]);
 
   return (
     <div className="bg-black flex justify-center">
