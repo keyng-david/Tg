@@ -2,15 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useTgUser } from '../hooks/use-tg-user';
 import { useQuery } from 'convex/react';
 import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api"; // A
-import {Link} from "react-router-dom";
-import {Toaster} from "sonner";
+import { api } from "../../convex/_generated/api";
+import { Link } from "react-router-dom";
+import { Toaster } from "sonner";
 import './home.css';
-import Hamster from' ./icons/Hamster';
-import {binanceLogo,dailyCipher,dailyCombo,dailyReward,dollarCoin,mainCharacter} from './images';
+import Hamster from './icons/Hamster';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
-import {useTgUser} from '../hooks/use-tg-user';
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -19,7 +18,9 @@ const App: React.FC = () => {
   });
 
   const [points, setPoints] = useState(user?.points || 0);
+
   const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints); // Corrected line
+
   const levelNames = [
     'Bronze',    // From 0 to 4999 coins
     'Silver',    // From 5000 coins to 24,999 coins
@@ -154,6 +155,7 @@ const App: React.FC = () => {
   }, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
 
   return (
+
     <div className="bg-black flex justify-center">
     <Toaster position="top-center" duration={3000} />
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
