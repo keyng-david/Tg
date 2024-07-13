@@ -8,7 +8,6 @@ import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainChar
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import { useTgUser } from '../hooks/use-tg-user';
-import { useSaveGameResult } from "../hooks/use-save-game-result";
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -51,16 +50,6 @@ const App: React.FC = () => {
 
   const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState("");
   const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState("");
-
-    // Function to save the result
-  const saveResult = async (points: number) => {
-    try {
-      await updateUserPoints({ tgUserId: currentTgUser.id, points });
-      console.log('Points updated successfully');
-    } catch (error) {
-      console.error('Failed to update points:', error);
-    }
-  };
 
   const calculateTimeLeft = (targetHour: number) => {
     const now = new Date();
