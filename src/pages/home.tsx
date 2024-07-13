@@ -17,6 +17,7 @@ const App: React.FC = () => {
   });
 
   const [points, setPoints] = useState(user?.points || 0);
+  const [updateUserPoints] = useMutation(api.mutations.updateUserPoints);
   const levelNames = [
     'Bronze',    // From 0 to 4999 coins
     'Silver',    // From 5000 coins to 24,999 coins
@@ -82,7 +83,6 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints);
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -95,7 +95,11 @@ const App: React.FC = () => {
 
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    setPoints(prevPoints => prevPoints + pointsToAdd);
+    setPoints((prevPoints) => {
+      const newPoints = prevPoints + 11;
+      updateUserPoints({ tgUserId: currentTgUser?.id, points: newPoints });
+      return newPoints;
+    });
   };
 
   const handleAnimationEnd = (id: number) => {
