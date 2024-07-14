@@ -10,7 +10,6 @@ import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
-import { useSaveGameResult } from "../hooks/use-save-game-result";
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -19,8 +18,6 @@ const App: React.FC = () => {
   });
 
   const [points, setPoints] = useState(user?.points || 0);
-
-  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints); // Ensure correct mutation
 
   const levelNames = [
     'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 
