@@ -87,23 +87,31 @@ const App: React.FC = () => {
   }, []);
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
-    setTimeout(() => {
-      card.style.transform = '';
-    }, 100);
+  const card = e.currentTarget;
+  const rect = card.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
+  setTimeout(() => {
+    card.style.transform = '';
+  }, 100);
 
-    setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
+  setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    setPoints((prevPoints) => {
-      const newPoints = prevPoints + 11;
-      updateUserPointsMutation({ tgUserId: currentTgUser?.id, points: newPoints }); // Corrected line
-      return newPoints;
-    });
-  };
+  setPoints((prevPoints) => {
+    const newPoints = prevPoints + 11;
+    if (currentTgUser?.id) {
+      updateUserPointsMutation({ tgUserId: currentTgUser.id, points: newPoints }); // Corrected line
+    }
+    return newPoints;
+  });
+};
+
+useEffect(() => {
+  if (currentTgUser && points > 0) {
+    updateUserPointsMutation({ tgUserId: currentTgUser.id, points }); // Corrected line
+  }
+}, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
