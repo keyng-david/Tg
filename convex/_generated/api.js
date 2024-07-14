@@ -13,8 +13,6 @@ import { anyApi } from "convex/server";
 import { mutation } from "convex/server";
 import { query } from "convex/server";
 
-
-
 /**
  * A utility for referencing Convex functions in your app's API.
  *
@@ -25,9 +23,11 @@ import { query } from "convex/server";
  */
 export const api = anyApi;
 export const internal = anyApi;
+
 export const updateUserPoints = mutation(async ({ db }, { tgUserId, points }) => {
   await db.table("users").update(tgUserId, { points });
 });
+
 export const userByTelegramId = query(async ({ db }, { tgUserId }) => {
-  return await db.table("users").filter({ tgUserId }).first();
+  return await db.table("users").filter(q => q.eq("tgUserId", tgUserId)).first();
 });
