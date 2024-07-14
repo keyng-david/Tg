@@ -19,32 +19,16 @@ const App: React.FC = () => {
 
   const [points, setPoints] = useState(user?.points || 0);
 
-  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints);
+  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints); // Ensure correct mutation
 
   const levelNames = [
-    'Bronze',    // From 0 to 4999 coins
-    'Silver',    // From 5000 coins to 24,999 coins
-    'Gold',      // From 25,000 coins to 99,999 coins
-    'Platinum',  // From 100,000 coins to 999,999 coins
-    'Diamond',   // From 1,000,000 coins to 2,000,000 coins
-    'Epic',      // From 2,000,000 coins to 10,000,000 coins
-    'Legendary', // From 10,000,000 coins to 50,000,000 coins
-    'Master',    // From 50,000,000 coins to 100,000,000 coins
-    'GrandMaster', // From 100,000,000 coins to 1,000,000,000 coins
-    'Lord',       // From 1,000,000,000 coins to ∞
+    'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 
+    'Legendary', 'Master', 'GrandMaster', 'Lord'
   ];
 
   const levelMinPoints = [
-    0,        // Bronze
-    5000,     // Silver
-    25000,    // Gold
-    100000,   // Platinum
-    1000000,  // Diamond
-    2000000,  // Epic
-    10000000, // Legendary
-    50000000, // Master
-    100000000,// GrandMaster
-    1000000000,// Lord
+    0, 5000, 25000, 100000, 1000000, 2000000, 
+    10000000, 50000000, 100000000, 1000000000
   ];
 
   const [levelIndex, setLevelIndex] = useState(6);
@@ -87,31 +71,31 @@ const App: React.FC = () => {
   }, []);
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
-  const card = e.currentTarget;
-  const rect = card.getBoundingClientRect();
-  const x = e.clientX - rect.left - rect.width / 2;
-  const y = e.clientY - rect.top - rect.height / 2;
-  card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
-  setTimeout(() => {
-    card.style.transform = '';
-  }, 100);
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    card.style.transform = `perspective(1000px) rotateX(${-y / 10}deg) rotateY(${x / 10}deg)`;
+    setTimeout(() => {
+      card.style.transform = '';
+    }, 100);
 
-  setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
+    setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-  setPoints((prevPoints) => {
-    const newPoints = prevPoints + 11;
-    if (currentTgUser?.id) {
-      updateUserPointsMutation({ tgUserId: currentTgUser.id, points: newPoints }); // Corrected line
+    setPoints((prevPoints) => {
+      const newPoints = prevPoints + pointsToAdd;
+      if (currentTgUser?.id) {
+        updateUserPointsMutation({ tgUserId: currentTgUser.id, points: newPoints }); // Corrected line
+      }
+      return newPoints;
+    });
+  };
+
+  useEffect(() => {
+    if (currentTgUser && points > 0) {
+      updateUserPointsMutation({ tgUserId: currentTgUser.id, points }); // Corrected line
     }
-    return newPoints;
-  });
-};
-
-useEffect(() => {
-  if (currentTgUser && points > 0) {
-    updateUserPointsMutation({ tgUserId: currentTgUser.id, points }); // Corrected line
-  }
-}, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
+  }, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
