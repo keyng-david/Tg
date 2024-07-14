@@ -19,7 +19,7 @@ const App: React.FC = () => {
 
   const [points, setPoints] = useState(user?.points || 0);
 
-  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints); // Corrected line
+  const updateUserPointsMutation = useMutation(api.mutations.updateUserPoints);
 
   const levelNames = [
     'Bronze',    // From 0 to 4999 coins
