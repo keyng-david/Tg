@@ -10,6 +10,7 @@ import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
+import { useSaveGameResult } from "../hooks/use-save-game-result";
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
