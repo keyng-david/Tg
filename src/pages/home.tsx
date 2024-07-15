@@ -79,10 +79,7 @@ const App: React.FC = () => {
 
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    setPoints((prevPoints) => {
-      const newPoints = prevPoints + pointsToAdd;
-      return newPoints;
-    });
+    setPoints((prevPoints) => prevPoints + pointsToAdd);
   };
 
   const saveGameResult = useSaveGameResult(points); // Use the hook to save points
@@ -91,9 +88,7 @@ const App: React.FC = () => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
       setPoints(prevPoints => {
-        const newPoints = prevPoints + pointsPerSecond;
-        return newPoints;
-      });
+        setPoints(prevPoints => prevPoints + pointsPerSecond);
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
