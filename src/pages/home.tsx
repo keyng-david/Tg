@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useTgUser } from '../hooks/use-tg-user';
 import { useQuery } from 'convex/react';
 import { Link } from "react-router-dom";
@@ -8,8 +8,8 @@ import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
-import { useSaveGameResult } from '../hooks/use-save-game-result'; // Import the hook
-import { api } from "../../convex/_generated/api";
+import { useSaveGameResult } from '../hooks/use-save-game-result';
+import { api } from '../../convex/_generated/api';
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -17,27 +17,27 @@ const App: React.FC = () => {
     tgUserId: currentTgUser?.id,
   });
 
-  const [points, setPoints] = useState(user?.points || 0);
+  const [points, setPoints] = useState<number>(user?.points || 0);
 
-  const levelNames = [
+  const levelNames = useMemo(() => [
     'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic',
     'Legendary', 'Master', 'GrandMaster', 'Lord'
-  ];
+  ], []);
 
-  const levelMinPoints = [
+  const levelMinPoints = useMemo(() => [
     0, 5000, 25000, 100000, 1000000, 2000000,
     10000000, 50000000, 100000000, 1000000000
-  ];
+  ], []);
 
-  const [levelIndex, setLevelIndex] = useState(6);
+  const [levelIndex, setLevelIndex] = useState<number>(6);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 11;
   const profitPerHour = 126420;
 
-  const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState('');
-  const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState('');
+  const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState<string>('');
+  const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState<string>('');
 
-  const calculateTimeLeft = (targetHour: number) => {
+  const calculateTimeLeft = (targetHour: number): string => {
     const now = new Date();
     const target = new Date(now);
     target.setUTCHours(targetHour, 0, 0, 0);
@@ -86,7 +86,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
-      setPoints((prevPoints: number) => prevPoints + pointsPerSecond);
+      setPoints((prevPoints: number) => prevPoints + pointsPerSecond); // Explicitly typed
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
@@ -95,7 +95,7 @@ const App: React.FC = () => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
   };
 
-  const calculateProgress = () => {
+  const calculateProgress = (): number => {
     if (levelIndex >= levelNames.length - 1) {
       return 100;
     }
@@ -116,10 +116,11 @@ const App: React.FC = () => {
   }, [points, levelIndex, levelMinPoints, levelNames.length]);
 
   useEffect(() => {
-    useSaveGameResult(points); // Call the hook to save points when they change
+    // Call the hook to save points when they change
+    useSaveGameResult(points);
   }, [points]);
 
-  const formatProfitPerHour = (profit: number) => {
+  const formatProfitPerHour = (profit: number): string => {
     if (profit >= 1000000000) return `+${(profit / 1000000000).toFixed(2)}B`;
     if (profit >= 1000000) return `+${(profit / 1000000).toFixed(2)}M`;
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
