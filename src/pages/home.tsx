@@ -115,10 +115,12 @@ const App: React.FC = () => {
     }
   }, [points, levelIndex, levelMinPoints, levelNames.length]);
 
+  // Use the custom hook to save game result when points change
+  const saveGameResult = useSaveGameResult();
+
   useEffect(() => {
-    // Call the hook to save points when they change
-    useSaveGameResult(points);
-  }, [points]);
+    saveGameResult(points);
+  }, [points, saveGameResult]);
 
   const formatProfitPerHour = (profit: number): string => {
     if (profit >= 1000000000) return `+${(profit / 1000000000).toFixed(2)}B`;
