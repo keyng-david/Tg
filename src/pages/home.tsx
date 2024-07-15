@@ -9,7 +9,7 @@ import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainChar
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import { useSaveGameResult } from '../hooks/use-save-game-result'; // Import the hook
-import { api } from '../../convex/_generated/api'; // Corrected import
+import { api } from "../../convex/_generated/api";
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -86,7 +86,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
-      setPoints((prevPoints: number) => prevPoints + pointsPerSecond); // Explicitly typed
+      setPoints((prevPoints: number) => prevPoints + pointsPerSecond);
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
