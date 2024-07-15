@@ -19,12 +19,12 @@ const App: React.FC = () => {
   const [points, setPoints] = useState(user?.points || 0);
 
   const levelNames = [
-    'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic', 
+    'Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Epic',
     'Legendary', 'Master', 'GrandMaster', 'Lord'
   ];
 
   const levelMinPoints = [
-    0, 5000, 25000, 100000, 1000000, 2000000, 
+    0, 5000, 25000, 100000, 1000000, 2000000,
     10000000, 50000000, 100000000, 1000000000
   ];
 
@@ -82,13 +82,10 @@ const App: React.FC = () => {
     setPoints((prevPoints) => prevPoints + pointsToAdd);
   };
 
-  const saveGameResult = useSaveGameResult(points); // Use the hook to save points
-
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
-      setPoints(prevPoints => {
-        setPoints(prevPoints => prevPoints + pointsPerSecond);
+      setPoints(prevPoints => prevPoints + pointsPerSecond);
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
@@ -117,13 +114,16 @@ const App: React.FC = () => {
     }
   }, [points, levelIndex, levelMinPoints, levelNames.length]);
 
+  useEffect(() => {
+    useSaveGameResult(points); // Call the hook to save points when they change
+  }, [points]);
+
   const formatProfitPerHour = (profit: number) => {
     if (profit >= 1000000000) return `+${(profit / 1000000000).toFixed(2)}B`;
     if (profit >= 1000000) return `+${(profit / 1000000).toFixed(2)}M`;
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-
 
   return (
 
