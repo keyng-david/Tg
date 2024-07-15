@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTgUser } from '../hooks/use-tg-user';
 import { useQuery } from 'convex/react';
-import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
 import './home.css';
@@ -10,6 +8,7 @@ import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
+import { useSaveGameResult } from '../hooks/use-save-game-result'; // Import the hook
 
 const App: React.FC = () => {
   const currentTgUser = useTgUser();
@@ -82,18 +81,22 @@ const App: React.FC = () => {
 
     setPoints((prevPoints) => {
       const newPoints = prevPoints + pointsToAdd;
-      if (currentTgUser?.id) {
-        updateUserPointsMutation({ tgUserId: currentTgUser.id, points: newPoints }); // Corrected line
-      }
       return newPoints;
     });
   };
 
+  const saveGameResult = useSaveGameResult(points); // Use the hook to save points
+
   useEffect(() => {
-    if (currentTgUser && points > 0) {
-      updateUserPointsMutation({ tgUserId: currentTgUser.id, points }); // Corrected line
-    }
-  }, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
+    const pointsPerSecond = Math.floor(profitPerHour / 3600);
+    const interval = setInterval(() => {
+      setPoints(prevPoints => {
+        const newPoints = prevPoints + pointsPerSecond;
+        return newPoints;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [profitPerHour]);
 
   const handleAnimationEnd = (id: number) => {
     setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
@@ -126,23 +129,6 @@ const App: React.FC = () => {
     return `+${profit}`;
   };
 
-  useEffect(() => {
-    const pointsPerSecond = Math.floor(profitPerHour / 3600);
-    const interval = setInterval(() => {
-      setPoints(prevPoints => {
-        const newPoints = prevPoints + pointsPerSecond;
-        updateUserPointsMutation({ tgUserId: currentTgUser?.id, points: newPoints }); // Corrected line
-        return newPoints;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [profitPerHour, currentTgUser?.id, updateUserPointsMutation]); // Added missing dependencies
-
-  useEffect(() => {
-    if (currentTgUser && points > 0) {
-      updateUserPointsMutation({ tgUserId: currentTgUser.id, points }); // Corrected line
-    }
-  }, [points, currentTgUser, updateUserPointsMutation]); // Added missing dependencies
 
   return (
 
