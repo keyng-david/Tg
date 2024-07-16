@@ -25,3 +25,5 @@ dist-ssr
 docs
 
 .env
+
+.env.local
