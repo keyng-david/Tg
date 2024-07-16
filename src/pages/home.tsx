@@ -80,13 +80,14 @@ const App: React.FC = () => {
 
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    setPoints((prevPoints: number) => prevPoints + pointsToAdd); // Explicitly typed
+    // Explicitly typed update of points
+    setPoints((prevPoints: number) => prevPoints + pointsToAdd);
   };
 
   useEffect(() => {
     const pointsPerSecond = Math.floor(profitPerHour / 3600);
     const interval = setInterval(() => {
-      setPoints((prevPoints: number) => prevPoints + pointsPerSecond); // Explicitly typed
+      setPoints((prevPoints: number) => prevPoints + pointsPerSecond);
     }, 1000);
     return () => clearInterval(interval);
   }, [profitPerHour]);
@@ -115,7 +116,7 @@ const App: React.FC = () => {
     }
   }, [points, levelIndex, levelMinPoints, levelNames.length]);
 
-  // Use the custom hook to save game result when points change
+  // Correct usage of the custom hook to save game result when points change
   useSaveGameResult(points);
 
   const formatProfitPerHour = (profit: number): string => {
@@ -124,8 +125,6 @@ const App: React.FC = () => {
     if (profit >= 1000) return `+${(profit / 1000).toFixed(2)}K`;
     return `+${profit}`;
   };
-  
-export default App;
 
   return (
 
