@@ -187,7 +187,7 @@ const App: React.FC = () => {
         </div>
       </div>    
 
-      {clicks.map((click) => (
+            {clicks.map((click) => (
         <div
           key={click.id}
           className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
@@ -205,4 +205,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App
+export default App;
