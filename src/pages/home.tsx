@@ -6,8 +6,6 @@ import { Toaster } from "sonner";
 import './home.css';
 import Hamster from './icons/Hamster';
 import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
-import Info from './icons/Info';
-import Settings from './icons/Settings';
 import { useSaveGameResult } from '../hooks/use-save-game-result';
 import { api } from '../../convex/_generated/api';
 
@@ -31,11 +29,8 @@ const App: React.FC = () => {
 
   const [levelIndex, setLevelIndex] = useState<number>(6);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
-  const pointsToAdd = 11;
-  const profitPerHour = 126420;
-
-  const [dailyRewardTimeLeft, setDailyRewardTimeLeft] = useState<string>('');
-  const [dailyComboTimeLeft, setDailyComboTimeLeft] = useState<string>('');
+  const pointsToAdd = 1;
+  const profitPerHour = 1000;
 
   const calculateTimeLeft = (targetHour: number): string => {
     const now = new Date();
@@ -131,16 +126,6 @@ const App: React.FC = () => {
     <div className="bg-black flex justify-center">
     <Toaster position="top-center" duration={3000} />
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
-        <div className="px-4 z-10">
-          <div className="flex items-center space-x-2 pt-4">
-            <div className="p-1 rounded-lg bg-[#1d2025]">
-              <Hamster size={24} className="text-[#d4d4d4]" />
-            </div>
-            <div>
-             // Modify the username display
-             <p className="text-sm">{user?.firstName} {user?.lastName}</p>
-            </div>
-          </div>
           <div className="flex items-center justify-between space-x-4 mt-1">
             <div className="flex items-center w-1/3">
               <div className="w-full">
@@ -156,14 +141,12 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center w-2/3 border-2 border-[#43433b] rounded-full px-4 py-[2px] bg-[#43433b]/[0.6] max-w-64">
-              <img src={binanceLogo} alt="Exchange" className="w-8 h-8" />
               <div className="h-[32px] w-[2px] bg-[#43433b] mx-2"></div>
               <div className="flex-1 text-center">
                 <p className="text-xs text-[#85827d] font-medium">Profit per hour</p>
                 <div className="flex items-center justify-center space-x-1">
                   <img src={dollarCoin} alt="Dollar Coin" className="w-[18px] h-[18px]" />
                   <p className="text-sm">{formatProfitPerHour(profitPerHour)}</p>
-                  <Info size={20} className="text-[#43433b]" />
                 </div>
               </div>
               <div className="h-[32px] w-[2px] bg-[#43433b] mx-2"></div>
@@ -181,7 +164,6 @@ const App: React.FC = () => {
              <img src={dailyReward} alt="Daily Reward" className="mx-auto w-12 h-12" />
                 </Link>
                 <p className="text-[10px] text-center text-white mt-1">Daily reward</p>
-                <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyRewardTimeLeft}</p>
               </div>
               <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <div className="dot"></div>
@@ -192,18 +174,18 @@ const App: React.FC = () => {
               </div>
               <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <div className="dot"></div>
-                <Link to="/daily-combo">
+                <Link to="#">
                   <img src={dailyCombo} alt="Daily Combo" className="mx-auto w-12 h-12" />
                  </Link>
                 <p className="text-[10px] text-center text-white mt-1">Daily combo</p>
-                <p className="text-[10px] font-medium text-center text-gray-400 mt-2">{dailyComboTimeLeft}</p>
               </div>
             </div>
 
             <div className="px-4 mt-4 flex justify-center">
               <div className="px-4 py-2 flex items-center space-x-2">
+                <p className="text-sm">{user?.firstName} {user?.lastName}</p>
                 <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
-                <p className="text-4xl text-white">{points.toLocaleString()}</p>
+                <p className="text-4xl text-white">{user?.points || 0}</p>
               </div>
             </div>
 
