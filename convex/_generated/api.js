@@ -10,7 +10,6 @@
  */
 
 import { anyApi } from "convex/server";
-import { mutation } from "convex/server";
 import { query } from "convex/server";
 
 /**
@@ -22,12 +21,3 @@ import { query } from "convex/server";
  * ```
  */
 export const api = anyApi;
-export const internal = anyApi;
-
-export const updateUserPoints = mutation(async ({ db }, { tgUserId, points }) => {
-  await db.table("users").update(tgUserId, { points });
-});
-
-export const userByTelegramId = query(async ({ db }, { tgUserId }) => {
-  return await db.table("users").filter(q => q.eq("tgUserId", tgUserId)).first();
-});
