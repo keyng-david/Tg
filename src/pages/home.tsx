@@ -26,7 +26,7 @@ const App: React.FC = () => {
     10000000, 50000000, 100000000, 1000000000
   ], []);
 
-  const [levelIndex, setLevelIndex] = useState<number>(6);
+  const [levelIndex, setLevelIndex] = useState<number>(1);
   const [clicks, setClicks] = useState<{ id: number, x: number, y: number }[]>([]);
   const pointsToAdd = 1;
   const profitPerHour = 1000;
