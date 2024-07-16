@@ -31,21 +31,21 @@ const App: React.FC = () => {
   const pointsToAdd = 1;
   const profitPerHour = 1000;
 
+  const now = new Date();
+  const targetHour = 0;
+  const target = new Date(now);
+  target.setUTCHours(targetHour, 0, 0, 0);
 
-    if (now.getUTCHours() >= targetHour) {
-      target.setUTCDate(target.getUTCDate() + 1);
-    }
+  if (now.getUTCHours() >= targetHour) {
+    target.setUTCDate(target.getUTCDate() + 1);
+  }
 
-    const diff = target.getTime() - now.getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const diff = target.getTime() - now.getTime();
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-    const paddedHours = hours.toString().padStart(2, '0');
-    const paddedMinutes = minutes.toString().padStart(2, '0');
-
-    return `${paddedHours}:${paddedMinutes}`;
-  };
-
+  const paddedHours = hours.toString().padStart(2, '0');
+  const paddedMinutes = minutes.toString().padStart(2, '0');
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
@@ -59,7 +59,6 @@ const App: React.FC = () => {
 
     setClicks([...clicks, { id: Date.now(), x: e.pageX, y: e.pageY }]);
 
-    // Explicitly typed update of points
     setPoints((prevPoints: number) => prevPoints + pointsToAdd);
   };
 
@@ -95,7 +94,6 @@ const App: React.FC = () => {
     }
   }, [points, levelIndex, levelMinPoints, levelNames.length]);
 
-  // Correct usage of the custom hook to save game result when points change
   useSaveGameResult(points);
 
   const formatProfitPerHour = (profit: number): string => {
@@ -108,10 +106,10 @@ const App: React.FC = () => {
   return (
 
     <div className="bg-black flex justify-center">
-    <Toaster position="top-center" duration={3000} />
+      <Toaster position="top-center" duration={3000} />
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
-          <div className="flex items-center justify-between space-x-4 mt-1">
-            <div className="px-4 z-10">
+        <div className="flex items-center justify-between space-x-4 mt-1">
+          <div className="px-4 z-10">
             <div className="flex items-center w-1/3">
               <div className="w-full">
                 <div className="flex justify-between">
@@ -144,33 +142,39 @@ const App: React.FC = () => {
             <div className="px-4 mt-6 flex justify-between gap-2">
               <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <div className="dot"></div>
-               <Link to="#">
-             <img src={dailyReward} alt="Daily Reward" className="mx-auto w-12 h-12" />
+                <Link to="#">
+                  <img src={dailyReward} alt="Daily Reward" className="mx-auto w-12 h-12" />
                 </Link>
                 <p className="text-[10px] text-center text-white mt-1">Daily reward</p>
               </div>
               <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <div className="dot"></div>
                 <Link to="/leaderboard">
-                   <img src={dailyCipher} alt="Daily Cipher" className="mx-auto w-12 h-12" />
-                 </Link>
+                  <img src={dailyCipher} alt="Daily Cipher" className="mx-auto w-12 h-12" />
+                </Link>
                 <p className="text-[10px] text-center text-white mt-1">Rank</p>
               </div>
               <div className="bg-[#272a2f] rounded-lg px-4 py-2 w-full relative">
                 <div className="dot"></div>
                 <Link to="#">
                   <img src={dailyCombo} alt="Daily Combo" className="mx-auto w-12 h-12" />
-                 </Link>
+                </Link>
                 <p className="text-[10px] text-center text-white mt-1">Daily combo</p>
               </div>
             </div>
 
             <div className="px-4 mt-4 flex justify-center">
+
               <div className="px-4 py-2 flex items-center space-x-2">
-                <p className="text-sm">{user?.firstName} {user?.lastName}</p>
+
+           <p className="text-sm">{user?.firstName} {user?.lastName}</p>
+
                 <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
+
                 <p className="text-4xl text-white">{user?.points || 0}</p>
+
               </div>
+
             </div>
 
             <div className="px-4 mt-4 flex justify-center">
@@ -187,7 +191,7 @@ const App: React.FC = () => {
         </div>
       </div>    
 
-            {clicks.map((click) => (
+      {clicks.map((click) => (
         <div
           key={click.id}
           className="absolute text-5xl font-bold opacity-0 text-white pointer-events-none"
