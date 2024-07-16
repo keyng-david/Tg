@@ -4,8 +4,7 @@ import { useQuery } from 'convex/react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
 import './home.css';
-import Hamster from './icons/Hamster';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
+import { dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import { useSaveGameResult } from '../hooks/use-save-game-result';
 import { api } from '../../convex/_generated/api';
 
@@ -32,10 +31,6 @@ const App: React.FC = () => {
   const pointsToAdd = 1;
   const profitPerHour = 1000;
 
-  const calculateTimeLeft = (targetHour: number): string => {
-    const now = new Date();
-    const target = new Date(now);
-    target.setUTCHours(targetHour, 0, 0, 0);
 
     if (now.getUTCHours() >= targetHour) {
       target.setUTCDate(target.getUTCDate() + 1);
@@ -140,7 +135,6 @@ const App: React.FC = () => {
                 </div>
               </div>
               <div className="h-[32px] w-[2px] bg-[#43433b] mx-2"></div>
-              <Settings className="text-white" />
             </div>
           </div>
         </div>
