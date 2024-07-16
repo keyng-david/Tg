@@ -51,11 +51,6 @@ const App: React.FC = () => {
     return `${paddedHours}:${paddedMinutes}`;
   };
 
-    updateCountdowns();
-    const interval = setInterval(updateCountdowns, 60000); // Update every minute
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
