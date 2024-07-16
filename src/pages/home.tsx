@@ -40,9 +40,6 @@ const App: React.FC = () => {
     target.setUTCDate(target.getUTCDate() + 1);
   }
 
-  const diff = target.getTime() - now.getTime();
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
   const handleCardClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget;
