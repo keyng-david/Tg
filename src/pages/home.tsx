@@ -51,12 +51,6 @@ const App: React.FC = () => {
     return `${paddedHours}:${paddedMinutes}`;
   };
 
-  useEffect(() => {
-    const updateCountdowns = () => {
-      setDailyRewardTimeLeft(calculateTimeLeft(0));
-      setDailyComboTimeLeft(calculateTimeLeft(12));
-    };
-
     updateCountdowns();
     const interval = setInterval(updateCountdowns, 60000); // Update every minute
 
@@ -127,6 +121,7 @@ const App: React.FC = () => {
     <Toaster position="top-center" duration={3000} />
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
           <div className="flex items-center justify-between space-x-4 mt-1">
+            <div className="px-4 z-10">
             <div className="flex items-center w-1/3">
               <div className="w-full">
                 <div className="flex justify-between">
