@@ -4,7 +4,9 @@ import { useQuery } from 'convex/react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
 import './home.css';
-import { dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
+import Info from './icons/Info';
+import Settings from './icons/Settings';
 import { useSaveGameResult } from '../hooks/use-save-game-result';
 import { api } from '../../convex/_generated/api';
 
@@ -124,15 +126,18 @@ const App: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center w-2/3 border-2 border-[#43433b] rounded-full px-4 py-[2px] bg-[#43433b]/[0.6] max-w-64">
+              <img src={binanceLogo} alt="Exchange" className="w-8 h-8" />
               <div className="h-[32px] w-[2px] bg-[#43433b] mx-2"></div>
               <div className="flex-1 text-center">
                 <p className="text-xs text-[#85827d] font-medium">Profit per hour</p>
                 <div className="flex items-center justify-center space-x-1">
                   <img src={dollarCoin} alt="Dollar Coin" className="w-[18px] h-[18px]" />
                   <p className="text-sm">{formatProfitPerHour(profitPerHour)}</p>
+                  <Info size={20} className="text-[#43433b]" />
                 </div>
               </div>
               <div className="h-[32px] w-[2px] bg-[#43433b] mx-2"></div>
+              <Settings className="text-white" />
             </div>
           </div>
         </div>
