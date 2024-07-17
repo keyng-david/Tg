@@ -102,6 +102,12 @@ const App: React.FC = () => {
     <div className="bg-black flex justify-center">
       <Toaster position="top-center" duration={3000} />
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
+        <div className="px-4 z-10">
+          <div className="flex items-center space-x-2 pt-4">
+            <div>
+              <p className="text-sm">{user?.firstName} {user?.lastName}</p>
+            </div>
+          </div>
         <div className="flex items-center justify-between space-x-4 mt-1">
           <div className="px-4 z-10">
             <div className="flex items-center w-1/3">
@@ -160,8 +166,6 @@ const App: React.FC = () => {
             <div className="px-4 mt-4 flex justify-center">
 
               <div className="px-4 py-2 flex items-center space-x-2">
-
-           <p className="text-sm">{user?.firstName} {user?.lastName}</p>
 
                 <img src={dollarCoin} alt="Dollar Coin" className="w-10 h-10" />
 
