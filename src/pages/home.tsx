@@ -100,7 +100,6 @@ const App: React.FC = () => {
   };
 
   return (
-
     <div className="bg-black flex justify-center">
       <Toaster position="top-center" duration={3000} />
       <div className="w-full bg-black text-white h-screen font-bold flex flex-col max-w-xl">
@@ -110,6 +109,7 @@ const App: React.FC = () => {
               <p className="text-sm">{user?.firstName} {user?.lastName}</p>
             </div>
           </div>
+        </div>
         <div className="flex items-center justify-between space-x-4 mt-1">
           <div className="px-4 z-10">
             <div className="flex items-center w-1/3">
@@ -141,7 +141,6 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-
         <div className="flex-grow mt-4 bg-[#f3ba2f] rounded-t-[48px] relative top-glow z-0">
           <div className="absolute top-[2px] left-0 right-0 bottom-0 bg-[#1d2025] rounded-t-[46px]">
             <div className="px-4 mt-6 flex justify-between gap-2">
