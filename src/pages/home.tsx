@@ -4,7 +4,7 @@ import { useQuery } from 'convex/react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
 import './home.css';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, hamsterCoin, dollarCoin, mainCharacter } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import { useSaveGameResult } from '../hooks/use-save-game-result';
@@ -106,7 +106,6 @@ const App: React.FC = () => {
         <div className="px-4 z-10">
           <div className="flex items-center space-x-2 pt-4">
             <div className="p-1 rounded-lg bg-[#1d2025]">
-              <Hamster size={24} className="text-[#d4d4d4]" />
             </div>
             <div>
               <p className="text-sm">{user?.firstName} {user?.lastName}</p>
