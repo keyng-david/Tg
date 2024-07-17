@@ -4,7 +4,7 @@ import { useQuery } from 'convex/react';
 import { Link } from "react-router-dom";
 import { Toaster } from "sonner";
 import './home.css';
-import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, hamsterCoin, mainCharacter } from './images';
+import { binanceLogo, dailyCipher, dailyCombo, dailyReward, dollarCoin, mainCharacter } from './images';
 import Info from './icons/Info';
 import Settings from './icons/Settings';
 import { useSaveGameResult } from '../hooks/use-save-game-result';
